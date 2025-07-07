@@ -1,10 +1,28 @@
 services:
   mongodb:
     container_name: mongodb
-    image: mongo
+    image: mongo:latest
     restart: always
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: gomongouser
       MONGO_INITDB_ROOT_PASSWORD: secretpassword
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongodb://gomongouser:secretpassword@localhost:${DB_PORT}/?authSource=admin --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  api:
+    image: cosmtrek/air
+    working_dir: /app
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    environment:
+      MONGODB_URL: "mongodb://gomongouser:secretpassword@mongodb:27017/?authSource=admin"
+    depends_on:
+      mongodb:
+        condition: service_healthy

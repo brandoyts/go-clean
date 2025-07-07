@@ -35,9 +35,9 @@ func NewServer(port string) *Server {
 }
 
 func (s *Server) registerDependencies() {
-	db, err := mongodb.New("go-clean", "mongodb://gomongouser:secretpassword@localhost:27017/?authSource=admin")
+	db, err := mongodb.New("go-clean", os.Getenv("MONGODB_URL"))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	log.Println("✅ successfully connected to mongodb")
