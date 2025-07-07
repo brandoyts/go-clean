@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/brandoyts/go-clean/adapters/database/mongodb"
+	"github.com/brandoyts/go-clean/infrastructure/database/mongodb"
 	"github.com/brandoyts/go-clean/infrastructure/rest/routes"
 	"github.com/brandoyts/go-clean/internal/controller"
 	"github.com/brandoyts/go-clean/internal/repository/mongoRepository"
