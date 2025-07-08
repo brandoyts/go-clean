@@ -19,8 +19,10 @@ services:
     working_dir: /app
     ports:
       - 8000:8000
+    command:
+      - air
     volumes:
-      - ./:/app
+      - .:/app
     environment:
       MONGODB_URL: "mongodb://gomongouser:secretpassword@mongodb:27017/?authSource=admin"
     depends_on:
